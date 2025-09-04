@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>RollerSpeed</title>
+</head>
+<body class="dark">
+    <div th:fragment="navbar">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+            <div class="container">
+                <a class="navbar-brand text-light" th:href="@{/}">RollerSpeed</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+                        </li>
+                        <!-- Corporativo -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">Corporativo</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/corporativo/nosotros}">Nosotros</a></li>
+                                <li><a class="dropdown-item" th:href="@{/corporativo/servicios}">Servicios</a></li>
+                                <li><a class="dropdown-item" th:href="@{/corporativo/eventos}">Eventos</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Registro -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle  text-light" href="#" data-bs-toggle="dropdown">Registro</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/registro/estudiante}">Estudiante</a></li>
+                                <li><a class="dropdown-item" th:href="@{/registro/instructor}">Instructor</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Clases -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">Clases</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/estudiantes}">Listar Estudiantes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/horario}">Horario</a></li>
+                                <li><a class="dropdown-item" th:href="@{/instructores}">Instructores</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
