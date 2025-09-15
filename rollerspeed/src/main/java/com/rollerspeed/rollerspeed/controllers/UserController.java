@@ -30,4 +30,15 @@ public class UserController {
     public String eventos() {
         return "corporativo/eventos"; // eventos.html en templates/corporativo
     }
+
+    // ---------------- REGISTRO ----------------
+    @GetMapping("registro/estudiantes")
+    public String registroEstudiantes() {
+        return "registro/estudiantes"; // estudiantes.html en templates/registro
+    }
+
+    @GetMapping("registro/instructor")
+    public String registroInstructor() {
+        return "registro/instructor"; // empresas.html en templates/registro
+    }
 }

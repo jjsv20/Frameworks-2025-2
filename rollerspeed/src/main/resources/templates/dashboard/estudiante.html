@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estudiante | RollerSpeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            background-color: #f7f9fc;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #000000;
+            color: #fff;
+        }
+        .sidebar .nav-link {
+            color: #fff;
+            margin: 5px 0;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #002ea1;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-custom {
+            background-color: #0048ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar superior -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block sidebar py-4">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/}">
+                                Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dashboard/clases}">
+                                Mis Clases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dashboard/pagos}">
+                                Pagos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dashboard/asistencia}">
+                                Asistencia
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dashboard/perfil}">
+                                Perfil
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Contenido principal -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+                <h1 class="h2 mb-4">Bienvenido, <span th:text="${session.usuario.nombre}">Estudiante</span></h1>
+
+                <div class="row">
+                    <!-- Card ejemplo: Clases pendientes -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3">
+                            <h5>Clases pendientes</h5>
+                            <p>3</p>
+                        </div>
+                    </div>
+                    <!-- Card ejemplo: Próxima clase -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3">
+                            <h5>Próxima clase</h5>
+                            <p>Miércoles, 17:00</p>
+                        </div>
+                    </div>
+                    <!-- Card ejemplo: Pagos pendientes -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3">
+                            <h5>Pagos pendientes</h5>
+                            <p>$120.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección adicional: Historial -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card p-3">
+                            <h5>Historial de clases</h5>
+                            <table class="table table-striped mt-2">
+                                <thead>
+                                    <tr>
+                                        <th>Clase</th>
+                                        <th>Fecha</th>
+                                        <th>Asistencia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Patinaje básico</td>
+                                        <td>01/09/2025</td>
+                                        <td>Asistió</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Patinaje intermedio</td>
+                                        <td>05/09/2025</td>
+                                        <td>Faltó</td>
+                                    </tr>
+                                    <!-- Más filas según datos reales -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -7,51 +7,58 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>RollerSpeed</title>
 </head>
+
 <body class="dark">
     <div th:fragment="navbar">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm">
             <div class="container">
-                <a class="navbar-brand text-light" th:href="@{/}">RollerSpeed</a>
+                <a class="navbar-brand fw-bold" th:href="@{/}">RollerSpeed</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="menuNav">
                     <ul class="navbar-nav ms-auto">
-
+                <!-- Siempre visible -->
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
                         </li>
-                        <!-- Corporativo -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">Corporativo</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/corporativo/nosotros}">Nosotros</a></li>
-                                <li><a class="dropdown-item" th:href="@{/corporativo/servicios}">Servicios</a></li>
-                                <li><a class="dropdown-item" th:href="@{/corporativo/eventos}">Eventos</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/corporativo/nosotros}">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/corporativo/servicios}">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/corporativo/eventos}">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/corporativo/galeria}">Galería</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/corporativo/blog}">Blog</a>
+                        </li>
+                        <!-- Opciones según sesión -->
+                        <!-- Opciones según sesión -->
+                        <li class="nav-item" th:if="${session.usuario == null}">
+                            <a class="nav-link" th:href="@{/auth/login}" target="_blank">Login</a>
                         </li>
 
-                        <!-- Registro -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle  text-light" href="#" data-bs-toggle="dropdown">Registro</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/registro/estudiante}">Estudiante</a></li>
-                                <li><a class="dropdown-item" th:href="@{/registro/instructor}">Instructor</a></li>
-                            </ul>
+                        <li class="nav-item" th:if="${session.usuario == null}">
+                            <a class="nav-link" th:href="@{/auth/register}">Registro</a>
                         </li>
 
-                        <!-- Clases -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">Clases</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/estudiantes}">Listar Estudiantes</a></li>
-                                <li><a class="dropdown-item" th:href="@{/horario}">Horario</a></li>
-                                <li><a class="dropdown-item" th:href="@{/instructores}">Instructores</a></li>
+                        <li class="nav-item dropdown" th:if="${session.usuario != null}">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" th:text="${session.usuario.nombre}"></a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" th:href="@{/dashboard/estudiante}">Mi perfil</a></li>
+                                <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
                             </ul>
                         </li>
-
                     </ul>
+                    
                 </div>
             </div>
         </nav>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Instructor | RollerSpeed</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f7f9fc;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #000000;
+            color: #fff;
+        }
+        .sidebar .nav-link {
+            color: #fff;
+            margin: 5px 0;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #002ea1;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-custom {
+            background-color: #0048ff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar superior -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar py-4">
+            <div class="position-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#mis-clases">Mis Clases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#asistencia">Asistencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#reportes">Reportes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#perfil">Perfil</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 content tab-content">
+
+            <!-- Inicio -->
+            <div class="tab-pane fade show active" id="inicio">
+                <h2 class="mb-4">Bienvenido, <span th:text="${session.usuario.nombre}">Instructor</span></h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h5>Clases hoy</h5>
+                            <p>2</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h5>Alumnos activos</h5>
+                            <p>12</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <h5>Próxima clase</h5>
+                            <p>Miércoles, 17:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mis Clases -->
+            <div class="tab-pane fade" id="mis-clases">
+                <div class="card p-3">
+                    <h5>Mis Clases</h5>
+                    <table class="table table-striped mt-2">
+                        <thead>
+                            <tr>
+                                <th>Clase</th>
+                                <th>Fecha</th>
+                                <th>Horario</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Patinaje básico</td>
+                                <td>01/09/2025</td>
+                                <td>17:00 - 18:00</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#detalleClaseModal">Ver alumnos</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Asistencia -->
+            <div class="tab-pane fade" id="asistencia">
+                <div class="card p-3">
+                    <h5>Registrar Asistencia</h5>
+                    <table class="table table-striped mt-2">
+                        <thead>
+                            <tr>
+                                <th>Alumno</th>
+                                <th>Clase</th>
+                                <th>Asistió</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carlos Gómez</td>
+                                <td>Patinaje básico</td>
+                                <td><input type="checkbox" checked></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reportes -->
+            <div class="tab-pane fade" id="reportes">
+                <div class="card p-3">
+                    <h5>Reportes</h5>
+                    <p>Genera reportes de asistencia, pagos y desempeño de tus alumnos.</p>
+                    <button class="btn btn-success">Generar Reporte PDF</button>
+                </div>
+            </div>
+
+            <!-- Perfil -->
+            <div class="tab-pane fade" id="perfil">
+                <div class="card p-3">
+                    <h5>Perfil</h5>
+                    <p>Nombre: <span th:text="${session.usuario.nombre}"></span></p>
+                    <p>Email: <span th:text="${session.usuario.email}"></span></p>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarPerfilModal">Editar Perfil</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="detalleClaseModal" tabindex="-1" aria-labelledby="detalleClaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alumnos de la Clase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Carlos Gómez</td>
+                            <td><input type="checkbox" checked></td>
+                        </tr>
+                        <tr>
+                            <td>Laura Ramírez</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:value="${session.usuario.nombre}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" th:value="${session.usuario.email}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
