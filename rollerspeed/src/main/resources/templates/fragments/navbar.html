@@ -47,18 +47,31 @@
                         </li>
 
                         <li class="nav-item" th:if="${session.usuario == null}">
-                            <a class="nav-link" th:href="@{/auth/register}">Registro</a>
+                            <a class="nav-link" th:href="@{/aspirantes/register}" target="_blank">Registro</a>
                         </li>
 
                         <li class="nav-item dropdown" th:if="${session.usuario != null}">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" th:text="${session.usuario.nombre}"></a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" th:href="@{/dashboard/estudiante}">Mi perfil</a></li>
+                                 <!-- Alumno -->
+                                <li th:if="${session.usuario.rol.name() == 'STUDENT'}">
+                                    <a class="dropdown-item" th:href="@{/alumnos/dashboard}">Mi perfil</a>
+                                </li>
+
+                                <!-- Instructor -->
+                                <li th:if="${session.usuario.rol.name() == 'INSTRUCTOR'}">
+                                    <a class="dropdown-item" th:href="@{/dashboard/instructor}">Mi perfil</a>
+                                </li>
+
+                                <!-- Admin -->
+                                <li th:if="${session.usuario.rol.name() == 'ADMIN'}">
+                                    <a class="dropdown-item" th:href="@{/dashboard/admin}">Mi perfil</a>
+                                </li>
+
                                 <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
                             </ul>
                         </li>
                     </ul>
-                    
                 </div>
             </div>
         </nav>

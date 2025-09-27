@@ -14,31 +14,4 @@ public class UserController {
         return "index"; // index.html en templates
     }
 
-    // ---------------- CORPORATIVO ----------------
-
-    @GetMapping("corporativo/nosotros")
-    public String mision() {
-        return "corporativo/nosotros"; // mision.html en templates/corporativo
-    }
-
-    @GetMapping("corporativo/servicios")
-    public String servicios() {
-        return "corporativo/servicios"; // servicios.html en templates/corporativo
-    }
-
-    @GetMapping("corporativo/eventos")
-    public String eventos() {
-        return "corporativo/eventos"; // eventos.html en templates/corporativo
-    }
-
-    // ---------------- REGISTRO ----------------
-    @GetMapping("registro/estudiantes")
-    public String registroEstudiantes() {
-        return "registro/estudiantes"; // estudiantes.html en templates/registro
-    }
-
-    @GetMapping("registro/instructor")
-    public String registroInstructor() {
-        return "registro/instructor"; // empresas.html en templates/registro
-    }
 }

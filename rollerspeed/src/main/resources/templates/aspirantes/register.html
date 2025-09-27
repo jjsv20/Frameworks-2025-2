@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Registro de Aspirante | RollerSpeed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="card p-4 shadow-sm" style="width:100%;max-width:560px;">
+        <h3 class="text-center text-primary mb-3">Registro de Aspirante</h3>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <form th:action="@{/aspirantes/register}" method="post">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <input name="nombre" class="form-control" placeholder="Nombre completo" required>
+            </div>
+            <div class="col-md-6 mb-2">
+              <input name="fechaNacimiento" type="date" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-2">
+                <select name="genero" class="form-select" required>
+                    <option value="" disabled selected>Género</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="OTRO">Otro</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-2">
+                <input name="documento" class="form-control" placeholder="Documento" required>
+            </div>
+            <div class="col-md-6 mb-2">
+                <input name="telefono" class="form-control" placeholder="Teléfono" required>
+            </div>
+
+            <div class="col-12 mb-2">
+                <input name="email" type="email" class="form-control" placeholder="Correo" required>
+            </div>
+            <div class="col-12 mb-2">
+                <input name="direccion" class="form-control" placeholder="Dirección">
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <select name="nivel" class="form-select" required>
+                    <option value="" disabled selected>Nivel</option>
+                    <option th:each="n : ${niveles}" th:value="${n}" th:text="${n}"></option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-2">
+                <select name="metodoPago" class="form-select" required>
+                    <option value="" disabled selected>Método de pago</option>
+                    <option th:each="m : ${metodos}" th:value="${m}" th:text="${m}"></option>
+                </select>
+            </div>
+
+            <div class="col-12 mb-3">
+                <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Registrarse</button>
+            </div>
+        </div>
+        </form>
+        <div class="text-center mt-3">
+            <small>¿Ya tienes cuenta? <a th:href="@{/auth/login}">Inicia sesión</a></small>
+        </div>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
