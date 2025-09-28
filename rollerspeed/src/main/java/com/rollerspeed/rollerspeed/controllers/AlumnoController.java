@@ -79,7 +79,7 @@ public class AlumnoController {
         }
     }
 
-    @GetMapping("/crear-perfil")
+    @GetMapping("/register")
     public String crearPerfil(HttpSession session, Model model) {
         UserModel usuario = (UserModel) session.getAttribute("usuario");
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
@@ -91,7 +91,7 @@ public class AlumnoController {
          return "redirect:/aspirantes/register";
     }
 
-    @PostMapping("/crear-perfil")
+    @PostMapping("/login")
     public String guardarNuevoPerfil(@ModelAttribute AlumnoModel alumno, HttpSession session) {
         UserModel usuario = (UserModel) session.getAttribute("usuario");
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {

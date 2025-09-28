@@ -11,4 +11,5 @@ import com.rollerspeed.rollerspeed.Model.AlumnoModel;
 public interface AlumnoRepository extends JpaRepository<AlumnoModel, Long>{
     //Optional<AlumnoModel> findByEmail(String email);
     Optional<AlumnoModel> findByUserId(Long userId);
+    long count();
 }

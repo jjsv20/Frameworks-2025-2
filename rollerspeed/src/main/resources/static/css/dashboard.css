@@ -1,0 +1,43 @@
+body {
+    background-color: #f8f8f8;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+    background-color: #111;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.sidebar .nav-link {
+    color: #ccc;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+    color: #fff;
+    background-color: #333;
+}
+
+.main-content {
+    padding: 30px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    color: #555;
+}

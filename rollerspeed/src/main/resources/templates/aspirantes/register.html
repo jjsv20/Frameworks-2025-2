@@ -5,7 +5,7 @@
     <title>Registro de Aspirante | RollerSpeed</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="min-height:100vh;">
+<body class="bg-black d-flex align-items-center justify-content-center" style="min-height:100vh;">
     <div class="card p-4 shadow-sm" style="width:100%;max-width:560px;">
         <h3 class="text-center text-primary mb-3">Registro de Aspirante</h3>
         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
@@ -21,8 +21,8 @@
             <div class="col-md-6 mb-2">
                 <select name="genero" class="form-select" required>
                     <option value="" disabled selected>Género</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMENINO">Femenino</option>
                     <option value="OTRO">Otro</option>
                 </select>
             </div>
