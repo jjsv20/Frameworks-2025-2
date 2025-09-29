@@ -4,49 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>RollerSpeed - Nosotros</title>
 </head>
 <body>
-
-
-    <footer class="text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>RollerSpeed</h5>
-                    <p>Expertos en techos y cubiertas metálicas con más de 15 años de experiencia en el mercado.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Enlaces rápidos</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" onclick="showSection('Nosotros')" class="text-light">Inicio</a></li>
-                        <li><a href="#" onclick="showSection('Servicios')" class="text-light">Productos</a></li>
-                        <li><a href="#" onclick="showSection('Eventos')" class="text-light">Servicios</a></li>
-                        <li><a href="#" onclick="showSection('Galería')" class="text-light">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contacto</h5>
-                    <p><i class="fas fa-phone me-2"></i> +57 314 780 4856</p>
-                    <p><i class="fas fa-envelope me-2"></i> info@sumetalicos.com</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i> Barranquilla, Colombia</p>
-                </div>
-            </div>
-            <hr class="my-4">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p>&copy; 2025 RollerSpeed. Todos los derechos reservados.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-light"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<footer class="mt-auto">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5 class="text-light">About Us</h5>
+        <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5 class="text-light">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a th:href="@{/corporativo/nosotros}"  class="text-decoration-none text-ligth">Nosotros</a></li>
+          <li><a th:href="@{/corporativo/servicios}" class="text-decoration-none text-ligth">Servicios</a></li>
+          <li><a th:href="@{/corporativo/eventos}" class="text-decoration-none text-ligth">Eventos</a></li>
+          <li><a th:href="@{/corporativo/galeria}" class="text-decoration-none text-ligth">Galería</a></li>
+          <li><a th:href="@{/corporativo/blog}" class="text-decoration-none text-ligth">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5 class="text-light">Follow Us</h5>
+        <ul class="list-inline social-icons">
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="mb-4">
+    <div class="row">
+      <div class="col-md-12 text-center text-light">
+        <p>&copy; 2025 RollerSpeed. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

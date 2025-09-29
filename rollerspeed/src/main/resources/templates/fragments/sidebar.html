@@ -1,44 +1,21 @@
 <div th:fragment="sidebar">
-    <nav class="col-md-3 col-lg-2 d-md-block sidebar p-0 shadow-sm">
+    <nav class="col-md-3 col-lg-2 d-md-block sidebar p-0">
         <div class="position-sticky pt-4">
             <div class="text-center mb-4">
-                <h4 class="fw-bold text-white">
-                    <i class="fas fa-skating"></i> RollerSpeed
-                </h4>
+                <h4 class="fw-bold"><i class="fas fa-skating"></i> RollerSpeed</h4>
             </div>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link"
-                       th:classappend="${#httpServletRequest.requestURI.contains('/dashboard')} ? 'active'"
-                       th:href="@{/admin/dashboard}">
-                        <i class="fas fa-home"></i> Dashboard
-                    </a>
+                    <a class="nav-link" th:href="@{/admin/dashboard}"> <i class="fas fa-home"></i> Dashboard </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       th:classappend="${#httpServletRequest.requestURI.contains('/gestionAlumnos')} ? 'active'"
-                       th:href="@{/admin/gestionAlumnos}">
-                        <i class="fas fa-users"></i> Alumnos
-                    </a>
+                    <a class="nav-link active" th:href="@{/admin/gestionAlumnos}"> <i class="fas fa-users"></i> Alumnos </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       th:classappend="${#httpServletRequest.requestURI.contains('/gestionInstructores')} ? 'active'"
-                       th:href="@{/admin/gestionInstructores}">
-                        <i class="fas fa-chalkboard-teacher"></i> Instructores
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       th:classappend="${#httpServletRequest.requestURI.contains('/reportes')} ? 'active'"
-                       th:href="@{/admin/reportes}">
-                        <i class="fas fa-chart-line"></i> Reportes
-                    </a>
+                    <a class="nav-link" th:href="@{/admin/gestionInstructores}"> <i class="fas fa-chalkboard-teacher"></i> Instructores </a>
                 </li>
                 <li class="nav-item mt-4">
-                    <a class="nav-link" th:href="@{/auth/logout}">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                    </a>
+                    <a class="nav-link" th:href="@{/auth/logout}"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
                 </li>
             </ul>
         </div>

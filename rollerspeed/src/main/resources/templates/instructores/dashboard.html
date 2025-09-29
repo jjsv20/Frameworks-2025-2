@@ -7,13 +7,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f8f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .sidebar { background-color: #111; min-height: 100vh; color: #fff; }
-        .sidebar .nav-link { color: #ccc; padding: 10px 20px; }
-        .sidebar .nav-link.active, .sidebar .nav-link:hover { color: #fff; background-color: #333; }
+        body {
+            background-color: #f8f8f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar {
+            background-color: #111;
+            min-height: 100vh;
+            color: #fff;
+        }
+        .sidebar .nav-link {
+            color: #ccc;
+            padding: 10px 20px;
+        }
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            color: #fff;
+            background-color: #333;
+        }
         .main-content { padding: 30px; }
-        .profile-card, .schedule-card, .stat-card { background-color: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; }
-        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 15px; }
+        .profile-card, .schedule-card, .stat-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .profile-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+        }
         .stat-number { font-size: 1.8rem; font-weight: bold; color: #000; }
         .stat-label { color: #555; font-size: 0.9rem; }
         .info-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
@@ -44,6 +74,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/instructores/alumnos}"> <i class="fas fa-users"></i> Lista de Alumnos </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/instructores/editar}"> <i class="fas fa-user-edit"></i> Perfil </a>
+                    </li>
                     <li class="nav-item mt-4">
                         <a class="nav-link" th:href="@{/auth/logout}"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
                     </li>
@@ -56,14 +89,14 @@
             <!-- Welcome -->
             <div class="mb-4">
                 <h2>¡Bienvenido, <span th:text="${instructor?.nombre ?: 'Instructor'}">Instructor</span>!</h2>
-                <p>Consulta tus clases y gestiona tus alumnos.</p>
+                <p>Gestiona tus clases y tus alumnos desde aquí.</p>
             </div>
 
-            <!-- Stats -->
+            <!-- Stats (simples para no romper plantilla) -->
             <div class="row g-3 mb-4">
                 <div class="col-md-3">
                     <div class="stat-card text-center">
-                        <div class="stat-number" th:text="${clases.size()}">3</div>
+                        <div class="stat-number">3</div>
                         <div class="stat-label">Clases Activas</div>
                     </div>
                 </div>
@@ -81,7 +114,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="stat-card text-center">
-                        <div class="stat-number" th:text="${clases.size()}">3</div>
+                        <div class="stat-number">3</div>
                         <div class="stat-label">Próximas Clases</div>
                     </div>
                 </div>
@@ -105,18 +138,27 @@
                             <span>Especialidad:</span>
                             <span th:text="${instructor?.especialidad ?: 'Patinaje'}">Patinaje</span>
                         </div>
+                        <div class="text-center mt-3">
+                            <a th:href="@{/instructores/editar}" class="btn-simple">Editar Perfil</a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Schedule / Classes -->
+                <!-- Placeholder Schedule -->
                 <div class="col-lg-8">
                     <div class="schedule-card">
-                        <h5>Mis Clases</h5>
-                        <div class="schedule-item" th:each="clase : ${clases}">
-                            <strong th:text="${clase.nombre}">Patinaje Básico</strong>
-                            <p th:text="${#dates.format(clase.fechaHora,'EEEE dd MMM yyyy HH:mm')} + ' | Alumnos: ' + ${clase.alumnos.size()}">
-                                Miércoles 17:00 - 18:00 | Alumnos: 5
-                            </p>
+                        <h5>Próximas Clases</h5>
+                        <div class="schedule-item">
+                            <strong>Clase de prueba</strong>
+                            <p>Miércoles 17:00 - 18:00 | Alumnos: 5</p>
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Clase de prueba 2</strong>
+                            <p>Viernes 15:00 - 16:30 | Alumnos: 8</p>
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Clase de prueba 3</strong>
+                            <p>Sábado 10:00 - 12:00 | Alumnos: 6</p>
                         </div>
                     </div>
                 </div>

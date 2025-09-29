@@ -3,85 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>RollerSpeed</title>
 </head>
 
 <body class="dark">
-    <div th:fragment="navbar">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm">
-            <div class="container">
-                <a class="navbar-brand fw-bold fas fa-skating" th:href="@{/}">RollerSpeed</a>
+<div th:fragment="navbar">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fas fa-skating" th:href="@{/}">RollerSpeed</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="menuNav">
-                    <ul class="navbar-nav ms-auto">
-                <!-- Siempre visible -->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/corporativo/nosotros}">Nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/corporativo/servicios}">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/corporativo/eventos}">Eventos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/corporativo/galeria}">Galería</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/corporativo/blog}">Blog</a>
-                        </li>
-                        <!-- Opciones según sesión -->
-                        <!-- Opciones según sesión -->
-                        <li class="nav-item" th:if="${session.usuario == null}">
-                            <a class="nav-link" th:href="@{/auth/login}" target="_blank">Login</a>
-                        </li>
+            <div class="collapse navbar-collapse" id="menuNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Siempre visible -->
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/corporativo/nosotros}">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/corporativo/servicios}">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/corporativo/eventos}">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/corporativo/galeria}">Galería</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/corporativo/blog}">Blog</a>
+                    </li>
 
-                        <li class="nav-item" th:if="${session.usuario == null}">
-                            <a class="nav-link" th:href="@{/aspirantes/register}" target="_blank">Registro</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.usuario == null}">
-                            <a class="nav-link" th:href="@{/admin/instructores/guardar}" target="_blank">Inst</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.usuario == null}">
-                            <a class="nav-link" th:href="@{/admin/gestionAlumnos/nuevoalumno}" target="_blank">AdminAlumons</a>
-                        </li>
-                        <li class="nav-item dropdown" th:if="${session.usuario != null}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" th:text="${session.usuario.nombre}"></a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                 <!-- Alumno -->
-                                <li th:if="${session.usuario.rol.name() == 'STUDENT'}">
-                                    <a class="dropdown-item" th:href="@{/alumnos/dashboard}">Mi perfil</a>
-                                </li>
+                    <!-- Opciones cuando no hay sesión iniciada -->
+                     <li class="nav-item" th:if="${session.usuario == null}">
+                        <a class="nav-link" th:href="@{/auth/login}">Login</a>
+                    </li>
 
-                                <!-- Instructor -->
-                                <li th:if="${session.usuario.rol.name() == 'INSTRUCTOR'}">
-                                    <a class="dropdown-item" th:href="@{/instructores/dashboard}">Mi perfil</a>
-                                </li>
+                    <li class="nav-item dropdown" th:if="${session.usuario == null}">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Registro</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{/aspirantes/register}">Aspirante</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/gestionInstructores/nuevoInstructor}">Instructor</a></li>
+                        </ul>
+                    </li>
 
-                                <!-- Admin -->
-                                <li th:if="${session.usuario.rol.name() == 'ADMIN'}">
-                                    <a class="dropdown-item" th:href="@{/dashboard/admin}">Mi perfil</a>
-                                </li>
+                    <!-- Opciones cuando hay sesión iniciada -->
+                    <li class="nav-item dropdown" th:if="${session.usuario != null}">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                           th:text="${session.usuario.nombre}"></a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <!-- Alumno -->
+                            <li th:if="${session.usuario.rol.name() == 'STUDENT'}">
+                                <a class="dropdown-item" th:href="@{/alumnos/dashboard}">Mi perfil</a>
+                            </li>
 
-                                <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                            <!-- Instructor -->
+                            <li th:if="${session.usuario.rol.name() == 'INSTRUCTOR'}">
+                                <a class="dropdown-item" th:href="@{/instructores/dashboard}">Mi perfil</a>
+                            </li>
+
+                            <!-- Admin -->
+                            <li th:if="${session.usuario.rol.name() == 'ADMIN'}">
+                                <a class="dropdown-item" th:href="@{/admin/dashboard}">Mi perfil</a>
+                            </li>
+
+                            <!-- Cerrar sesión -->
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

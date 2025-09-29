@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +52,7 @@ public class AdminController {
     public String listarAlumnos(Model model) {
         model.addAttribute("alumnos", alumnoRepository.findAll());
         return "admin/gestionAlumnos/listarAlumnos";
-}
+    }
 
 
     //alumnos por admin
@@ -105,59 +107,79 @@ public class AdminController {
         return "redirect:/admin/gestionAlumnos?exito=alumno_creado";
     }
 
-
-    @GetMapping("/gestionAlumnos/eliminar")
-    public String eliminarAlumno(@RequestParam Long id) {
-        alumnoRepository.findById(id).ifPresent(alumno -> {
-            userRepository.delete(alumno.getUser()); // Eliminar usuario asociado
-            alumnoRepository.delete(alumno); // Eliminar alumno
-        });
-        return "redirect:/admin/gestionAlumnos?exito=alumno_eliminado";
-    }
-
-    @GetMapping("/gestionAlumnos/editarAlumno")
-    public String editarAlumno(@RequestParam("id") Long id, Model model) {
+//**********************************************************FALTA REVISAR**************************************************** */
+    @GetMapping("/gestionAlumnos/editar/{id}")
+    public String mostrarFormularioEditarAlumno(@PathVariable Long id, Model model) {
         AlumnoModel alumno = alumnoRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado: " + id));
+            .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado"));
         model.addAttribute("alumno", alumno);
-        model.addAttribute("niveles", List.of("INICIAL", "INTERMEDIO", "AVANZADO"));    
+        model.addAttribute("niveles", List.of("INICIAL", "INTERMEDIO", "AVANZADO"));
         model.addAttribute("metodos", List.of("EFECTIVO", "TRANSFERENCIA", "TARJETA"));
-        return "admin/gestionAlumnos/editarAlumno";
+        return "admin/gestionAlumnos/editarAlumnos";
     }
-    
-    @PostMapping("/gestionAlumnos/editarAlumno")
-    public String actualizarAlumno(
-        @RequestParam("id") Long id,
+
+    @PostMapping("/gestionAlumnos/editar/{id}")
+    public String editarAlumno(
+        @PathVariable Long id,
         @RequestParam String nombre,
-        @RequestParam String telefono,
+        @RequestParam String email,
+        @RequestParam String fechaNacimiento,
         @RequestParam String genero,
+        @RequestParam String telefono,
         @RequestParam String nivel,
         @RequestParam String metodoPago,
-        @RequestParam AlumnoModel.EstadoPago estadoPago
-) {
-    AlumnoModel alumno = alumnoRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado: " + id));
+        Model model) {
 
-    alumno.setNombre(nombre);
-    alumno.setTelefono(telefono);
-    alumno.setGenero(genero);
-    alumno.setNivel(nivel);
-    alumno.setMetodoPago(metodoPago);
-    alumno.setEstadoPago(estadoPago);
+        AlumnoModel alumno = alumnoRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado"));
+        UserModel user = alumno.getUser();
 
-    alumnoRepository.save(alumno);
+    // Validar email único (excepto el actual)
+        if (!user.getEmail().equals(email) && userRepository.findByEmail(email).isPresent()) {
+            model.addAttribute("error", "El correo ya está en uso");
+            model.addAttribute("alumno", alumno);
+            model.addAttribute("niveles", List.of("INICIAL", "INTERMEDIO", "AVANZADO"));
+            model.addAttribute("metodos", List.of("EFECTIVO", "TRANSFERENCIA", "TARJETA"));
+            return "admin/gestionAlumnos/editarAlumnos";
+        }
 
-    return "redirect:/admin/gestionAlumnos?exito=alumno_editado";
+    // Actualizar UserModel
+        user.setNombre(nombre);
+        user.setEmail(email);
+        userRepository.save(user);
+
+    // Actualizar AlumnoModel
+        alumno.setNombre(nombre);
+        alumno.setEmail(email);
+        alumno.setTelefono(telefono);
+        alumno.setGenero(genero);
+        alumno.setFechaNacimiento(fechaNacimiento);
+        alumno.setMetodoPago(metodoPago);
+        alumno.setNivel(nivel);
+        alumnoRepository.save(alumno);
+
+        return "redirect:/admin/gestionAlumnos?exito=alumno_editado";
 }
 
 
+    
+
+
     //FALTA POR IMPLEMENTAR____________
-     @GetMapping("/instructores/nuevo")
-    public String mostrarFormularioInstructor(Model model) {
-        return "admin/instructores/form-instructor";
+
+    @GetMapping("/gestionInstructores")
+    public String listarInstructores(Model model) {
+        model.addAttribute("instructores", instructorRepository.findAll());
+        return "admin/gestionInstructores/listarInstructores";
     }
 
-    @PostMapping("/instructores/guardar")
+    @GetMapping("/gestionInstructores/nuevoInstructor")
+    public String mostrarFormularioInstructor(Model model) {
+        model.addAttribute("especialidades", List.of("Patinaje Artistico", "Avanzado", "Recreativo"));
+        return "admin/gestionInstructores/nuevoInstructor";
+    }
+
+    @PostMapping("/gestionInstructores/nuevoInstructor")
     public String guardarInstructor(
             @RequestParam String nombre,
             @RequestParam String correo,
@@ -169,8 +191,9 @@ public class AdminController {
         // Validar correo único
         if (userRepository.findByEmail(correo).isPresent() || 
             instructorRepository.findByCorreo(correo).isPresent()) {
+            model.addAttribute("especialidades", List.of("Patinaje Artistico", "Avanzado", "Recreativo"));
             model.addAttribute("error", "El correo ya está registrado");
-            return "admin/instructores/form-instructor";
+            return "admin/gestionInstructores/nuevoInstructor";
         }
 
         // Crear usuario
@@ -179,7 +202,7 @@ public class AdminController {
         user.setEmail(correo);
         user.setPassword(passwordEncoder.encode(password));
         user.setRol(UserModel.Role.INSTRUCTOR);
-        user = userRepository.save(user);
+        userRepository.save(user);
 
         // Crear instructor
         InstructorModel instructor = new InstructorModel();
@@ -190,15 +213,8 @@ public class AdminController {
         instructor.setUser(user);
         instructorRepository.save(instructor);
 
-        return "redirect:/admin/instructores?exito=instructor_creado";
+        return "redirect:/admin/gestionInstructores?exito=instructor_creado";
     }
 
-    // =============== LISTADOS (opcional) ===============
-
-
-    @GetMapping("/instructores")
-    public String listarInstructores(Model model) {
-        model.addAttribute("instructores", instructorRepository.findAll());
-        return "admin/instructores/lista";
-    }
+    
 }

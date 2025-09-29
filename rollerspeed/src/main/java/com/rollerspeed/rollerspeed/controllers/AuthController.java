@@ -42,8 +42,8 @@ public class AuthController {
 
                 // Redirigir según rol
                 return switch (user.getRol()) {
-                    case ADMIN -> "redirect:/dashboard/admin";
-                    case INSTRUCTOR -> "redirect:/dashboard/instructor";
+                    case ADMIN -> "redirect:/admin/dashboard";
+                    case INSTRUCTOR -> "redirect:/instructores/dashboard";
                     case STUDENT -> "redirect:/alumnos/dashboard";
                     case PUBLIC -> "redirect:/";
                 };
