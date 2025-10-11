@@ -11,7 +11,7 @@ import com.rollerspeed.rollerspeed.Model.InstructorModel;
 public interface InstructorRepository extends JpaRepository<InstructorModel, Long> {
     Optional<InstructorModel> findByUserId(Long userId);
 
-    Optional<InstructorModel> findByCorreo(String correo);
+    Optional<InstructorModel> findByCorreo(String email);
 
     long count();
 

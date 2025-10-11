@@ -17,6 +17,8 @@
             color: #fff; background-color: #333;
         }
         .main-content { padding: 30px; }
+        .badge-pendiente { background-color: #ffc107; color: #000; }
+        .badge-pagado { background-color: #28a745; color: #fff; }
     </style>
 </head>
 <body>
@@ -45,6 +47,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/gestionPagos}"> 
+                            <i class="fas fa-credit-card"></i> Pagos 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/gestionClases}"> 
+                            <i class="fas fa-calendar"></i> Clases 
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/reportes}"> 
                             <i class="fas fa-chart-line"></i> Reportes 
                         </a>
@@ -68,13 +80,14 @@
             </div>
 
             <!-- Mensaje de éxito -->
-            <div th:if="${param.exito}" class="alert alert-success">
+            <div th:if="${param.exito}" class="alert alert-success alert-dismissible fade show" role="alert">
                 <span th:switch="${param.exito}">
                     <span th:case="'alumno_creado'">Alumno registrado con éxito</span>
                     <span th:case="'alumno_editado'">Alumno actualizado correctamente</span>
                     <span th:case="'alumno_eliminado'">Alumno eliminado correctamente</span>
                     <span th:case="*">Operación realizada con éxito</span>
                 </span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
 
             <!-- Tabla de alumnos -->
@@ -85,8 +98,10 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Teléfono</th>
+                            <th>Género</th>
                             <th>Nivel</th>
                             <th>Método Pago</th>
+                            <th>Fecha de inscripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -95,22 +110,29 @@
                             <td th:text="${alumno.nombre}">Nombre</td>
                             <td th:text="${alumno.email}">correo@ejemplo.com</td>
                             <td th:text="${alumno.telefono}">3001234567</td>
+                            <td th:text="${alumno.genero}">MASCULINO</td>
                             <td th:text="${alumno.nivel}">INICIAL</td>
                             <td th:text="${alumno.metodoPago}">EFECTIVO</td>
+                            <td th:text="${alumno.fechaInscripcion}"></td>
                             <td>
-                                <a class="btn btn-sm btn-warning" th:href="@{'/admin/gestionAlumnos/editar/' + ${alumno.id}}" >
+                                <!-- Botones de edición y eliminación -->
+                                <a class="btn btn-sm btn-warning" 
+                                    th:href="@{'/admin/gestionAlumnos/editarAlumno/' + ${alumno.id}}"
+                                    title="Editar alumno">
                                     <i class="fas fa-edit"></i>
                                 </a>
-
+                                
                                 <a class="btn btn-sm btn-danger"
-                                   th:href="@{'/admin/gestionAlumnos/eliminar/' + ${alumno.id}}"
-                                   onclick="return confirm('¿Eliminar este alumno?')">
+                                    th:href="@{'/admin/gestionAlumnos/eliminarAlumno/' + ${alumno.id}}"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este alumno?');"
+                                    title="Eliminar alumno">
                                     <i class="fas fa-trash"></i>
                                 </a>
+                
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(alumnos)}">
-                            <td colspan="6" class="text-center">No hay alumnos registrados</td>
+                            <td colspan="9" class="text-center">No hay alumnos registrados</td>
                         </tr>
                     </tbody>
                 </table>

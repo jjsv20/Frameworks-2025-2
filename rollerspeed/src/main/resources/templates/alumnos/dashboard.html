@@ -33,7 +33,7 @@
             padding: 30px;
         }
 
-        .profile-card, .schedule-card, .stat-card {
+        .profile-card, .schedule-card, .stat-card, .noti-card {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
@@ -101,6 +101,26 @@
             margin-bottom: 0;
         }
 
+        .noti-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .noti-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .noti-item:last-child {
+            border-bottom: none;
+        }
+
+        .noti-date {
+            color: #777;
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 padding: 15px;
@@ -130,6 +150,16 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/alumnos/editar}"> <i class="fas fa-user-edit"></i> Perfil </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/alumnos/notfi}"> <i class="fas fa-bell"></i> Notificaciones
+                            <span th:if="${notificacionesNoLeidas > 0}"
+                            class="badge bg-danger ms-2"
+                            th:text="${notificacionesNoLeidas}"></span>
+                        </a>
+                    </li>
+
+
+                    </li>
                     <li class="nav-item mt-4">
                         <a class="nav-link" th:href="@{/auth/logout}"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
                     </li>
@@ -141,8 +171,10 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 main-content">
             <!-- Welcome -->
             <div class="mb-4">
-                <h2>¡Bienvenido, <span th:text="${alumno?.nombre ?: 'Estudiante'}">Estudiante</span>!</h2>
-                <p>Revisa tus próximas clases y tu perfil.</p>
+                <h2>
+                    ¡Bienvenido, <span th:text="${alumno?.nombre ?: 'Estudiante'}">Estudiante</span>!
+                </h2>
+                <p>Revisa tus próximas clases, pagos y notificaciones.</p>
             </div>
 
             <!-- Stats -->
@@ -197,25 +229,6 @@
                         </div>
                         <div class="text-center mt-3">
                             <a th:href="@{/alumnos/editar}" class="btn-simple">Editar Perfil</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Schedule -->
-                <div class="col-lg-8">
-                    <div class="schedule-card">
-                        <h5>Próximas Clases</h5>
-                        <div class="schedule-item">
-                            <strong>Patinaje Básico</strong>
-                            <p>Miércoles 17:00 - 18:00 | Instructor: María González</p>
-                        </div>
-                        <div class="schedule-item">
-                            <strong>Técnicas Avanzadas</strong>
-                            <p>Viernes 15:00 - 16:30 | Instructor: Carlos Rodríguez</p>
-                        </div>
-                        <div class="schedule-item">
-                            <strong>Práctica Libre</strong>
-                            <p>Sábado 10:00 - 12:00 | Sesión grupal</p>
                         </div>
                     </div>
                 </div>

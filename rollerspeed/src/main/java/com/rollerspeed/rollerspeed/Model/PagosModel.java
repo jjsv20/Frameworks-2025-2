@@ -1,6 +1,7 @@
 package com.rollerspeed.rollerspeed.Model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,48 +11,41 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tbl_alumnos")
+@Table(name = "tbl_pagos")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AlumnoModel {
+@NoArgsConstructor
+public class PagosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
-    private String fechaNacimiento;
-    private String genero;
-    private String telefono;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal monto;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false)
+    private LocalDateTime fechaPago;
 
-    private String metodoPago;
+    @Column(nullable = false)
+    private String metodo;
 
     @Enumerated(EnumType.STRING)
-    private EstadoPago estadoPago = EstadoPago.PENDIENTE;
+    private EstadoPago estado = EstadoPago.PENDIENTE;
 
-    private LocalDate fechaInscripcion = LocalDate.now();
-    private String nivel = "Principiante";
-
-    // Relación con la tabla de usuarios
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserModel user;
+    @ManyToOne
+    @JoinColumn(name = "alumno_id", nullable = false)
+    private AlumnoModel alumno;
 
     public enum EstadoPago {
         PENDIENTE,
         APROBADO,
         RECHAZADO
     }
-
-   
 }

@@ -14,4 +14,5 @@ public interface AlumnoRepository extends JpaRepository<AlumnoModel, Long>{
     Optional<AlumnoModel> findByUserId(Long userId);
     long count();
     Optional<UserModel> findByEmail(String email);
+    Optional<AlumnoModel> findByUser(UserModel user);
 }

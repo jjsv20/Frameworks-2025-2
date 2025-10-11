@@ -18,10 +18,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) 
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() 
-            );
+                // deja pasar el login, registro y recursos estáticos
+                .requestMatchers("/auth/**", "/css/**", "/js/**", "/images/**").permitAll()
+                // permite todo lo demás (ya tú controlas con HttpSession)
+                .anyRequest().permitAll()
+            )
+            // desactiva la autenticación automática de Spring
+            .formLogin(login -> login.disable())
+            .logout(logout -> logout.disable());
 
         return http.build();
     }

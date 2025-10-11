@@ -38,6 +38,12 @@
                         <a class="nav-link" th:href="@{/admin/gestionInstructores}"> <i class="fas fa-chalkboard-teacher"></i> Instructores </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/gestionPagos}"> <i class="fas fa-credit-card"></i> Pagos </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/gestionClases}"> <i class="fas fa-calendar"></i> Clases </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/reportes}"> <i class="fas fa-chart-line"></i> Reportes </a>
                     </li>
                     <li class="nav-item mt-4">
@@ -51,7 +57,7 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 main-content">
             <div class="mb-4">
                 <h2>¡Bienvenido Administrador!</h2>
-                <p>Desde aquí puedes gestionar alumnos, instructores y consultar reportes.</p>
+                <p>Desde aquí puedes gestionar alumnos, instructores, clases, pagos  y consultar reportes.</p>
             </div>
 
             <!-- Stats -->
@@ -70,8 +76,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="stat-card">
-                        <div class="stat-number" th:text="${pagosPendientes ?: 0}">0</div>
+                        <div class="stat-number" th:text="${totalPagos ?: 0}">0</div>
                         <div class="stat-label">Pagos Pendientes</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number" th:text="${totalClases ?: 0}">0</div>
+                        <div class="stat-label">Clases actuales</div>
                     </div>
                 </div>
             </div>
