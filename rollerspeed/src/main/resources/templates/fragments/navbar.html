@@ -46,37 +46,11 @@
 
                     <!-- Opciones cuando no hay sesión iniciada -->
                     <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="btn btn-outline-light me-2" th:href="@{/auth/login}">Login</a>
+                        <a class="nav-link" th:href="@{/auth/login}" target="_blank">Login</a>
                     </li>
                     <li class="nav-item" th:if="${session.usuario == null}">
-                        <a class="btn btn-primary" th:href="@{/aspirantes/register}">Registrarse</a>
+                        <a class="nav-link" th:href="@{/aspirantes/register}" target="_blank">Registrarse</a>
                     </li>
-
-                    <!-- Opciones cuando hay sesión iniciada -->
-                    <li class="nav-item dropdown" th:if="${session.usuario != null}">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                           th:text="${session.usuario.nombre}"></a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <!-- Alumno -->
-                            <li th:if="${session.usuario.rol.name() == 'STUDENT'}">
-                                <a class="dropdown-item" th:href="@{/alumnos/dashboard}">Mi perfil</a>
-                            </li>
-
-                            <!-- Instructor -->
-                            <li th:if="${session.usuario.rol.name() == 'INSTRUCTOR'}">
-                                <a class="dropdown-item" th:href="@{/instructores/dashboard}">Mi perfil</a>
-                            </li>
-
-                            <!-- Admin -->
-                            <li th:if="${session.usuario.rol.name() == 'ADMIN'}">
-                                <a class="dropdown-item" th:href="@{/admin/dashboard}">Mi perfil</a>
-                            </li>
-
-                            <!-- Cerrar sesión -->
-                            <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </div>

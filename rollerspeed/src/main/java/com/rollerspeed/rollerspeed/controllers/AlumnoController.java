@@ -7,13 +7,13 @@ import com.rollerspeed.rollerspeed.Model.PagosModel;
 import com.rollerspeed.rollerspeed.Repository.AlumnoRepository;
 import com.rollerspeed.rollerspeed.Repository.ClaseRepository;
 import com.rollerspeed.rollerspeed.Repository.PagosRepository;
+import com.rollerspeed.rollerspeed.Repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,19 +32,27 @@ public class AlumnoController {
     @Autowired
     private ClaseRepository claseRepository;
 
+     @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String dashboard(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
             return "redirect:/auth/login";
         }
 
-        // Buscar el perfil de alumno
+        // Buscar el perfil del alumno
         Optional<AlumnoModel> alumnoOpt = alumnoRepository.findByUserId(usuario.getId());
         if (alumnoOpt.isPresent()) {
             model.addAttribute("alumno", alumnoOpt.get());
             model.addAttribute("usuario", usuario);
-
             return "alumnos/dashboard";
         } else {
             return "redirect:/aspirantes/register";
@@ -52,12 +60,18 @@ public class AlumnoController {
     }
 
     @GetMapping("/editar")
-    public String editarPerfil(HttpSession session, Model model) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
-        if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
+    public String editarPerfil(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/auth/login";
         }
 
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
+        if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
+            return "redirect:/auth/login";
+        }
+        
         Optional<AlumnoModel> alumnoOpt = alumnoRepository.findByUserId(usuario.getId());
         if (alumnoOpt.isPresent()) {
             model.addAttribute("alumno", alumnoOpt.get());
@@ -69,11 +83,17 @@ public class AlumnoController {
     }
 
     @PostMapping("/editar")
-    public String guardarPerfil(@ModelAttribute AlumnoModel alumnoEditado, HttpSession session) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
-        if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
+    public String guardarPerfil(@ModelAttribute AlumnoModel alumnoEditado, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/auth/login";
         }
+
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
+        if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
+            return "redirect:/auth/login";
+        }   
 
         Optional<AlumnoModel> alumnoOpt = alumnoRepository.findByUserId(usuario.getId());
         if (alumnoOpt.isPresent()) {
@@ -93,21 +113,33 @@ public class AlumnoController {
         }
     }
 
+
     @GetMapping("/register")
-    public String crearPerfil(HttpSession session, Model model) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String crearPerfil(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
             return "redirect:/auth/login";
         }
 
         model.addAttribute("alumno", new AlumnoModel());
         model.addAttribute("usuario", usuario);
-         return "redirect:/aspirantes/register";
+        return "redirect:/aspirantes/register";
     }
 
     @PostMapping("/login")
-    public String guardarNuevoPerfil(@ModelAttribute AlumnoModel alumno, HttpSession session) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String guardarNuevoPerfil(@ModelAttribute AlumnoModel alumno, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
             return "redirect:/auth/login";
         }
@@ -120,8 +152,14 @@ public class AlumnoController {
     }
 
     @GetMapping("/pagos")
-    public String verPagosAlumno(HttpSession session, Model model) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String verPagosAlumno(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
             return "redirect:/auth/login";
         }
@@ -139,8 +177,14 @@ public class AlumnoController {
     }
     
     @GetMapping("/clases")
-    public String verClasesAsignadas(HttpSession session, Model model) {
-        UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String verClasesAsignadas(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.STUDENT)) {
             return "redirect:/auth/login";
         }

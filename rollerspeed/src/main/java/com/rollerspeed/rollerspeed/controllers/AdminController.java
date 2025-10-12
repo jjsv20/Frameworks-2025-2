@@ -1,10 +1,12 @@
 package com.rollerspeed.rollerspeed.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rollerspeed.rollerspeed.Model.AlumnoModel;
+import com.rollerspeed.rollerspeed.Model.AsistenciaModel;
 import com.rollerspeed.rollerspeed.Model.ClaseModel;
 import com.rollerspeed.rollerspeed.Model.InstructorModel;
 import com.rollerspeed.rollerspeed.Model.PagosModel;
 import com.rollerspeed.rollerspeed.Model.UserModel;
 import com.rollerspeed.rollerspeed.Repository.*;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @Controller
@@ -48,14 +50,21 @@ public class AdminController {
     @Autowired
     private ClaseRepository claseRepository;
 
+     @Autowired
+    private AsistenciaRepository asistenciaRepository;
+
 
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
-         UserModel usuario = (UserModel) session.getAttribute("usuario");
+    public String dashboard(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/auth/login";
+        }
+        String email = authentication.getName();
+        UserModel usuario = userRepository.findByEmail(email).orElse(null);
+
         if (usuario == null || !usuario.getRol().equals(UserModel.Role.ADMIN)) {
             return "redirect:/auth/login";
         }
-
         long totalAlumnos = alumnoRepository.count();
         long totalInstructores = instructorRepository.count();
         long totalClases = claseRepository.count();
@@ -65,6 +74,7 @@ public class AdminController {
         model.addAttribute("totalInstructores", totalInstructores);
         model.addAttribute("totalPagos", totalPagosPendientes);
         model.addAttribute("totalClases", totalClases);
+        model.addAttribute("usuario", usuario);
 
         
         return "admin/dashboard";
@@ -404,13 +414,29 @@ public class AdminController {
         ClaseModel clase = claseRepository.findById(claseId).orElse(null);
         AlumnoModel alumno = alumnoRepository.findById(alumnoId).orElse(null);
 
-        if(clase != null && alumno != null) {
-            clase.getAlumnos().add(alumno);
-            claseRepository.save(clase);
+        if (clase != null && alumno != null) {
+
+        // Evita duplicados en la lista de alumnos
+            if (!clase.getAlumnos().contains(alumno)) {
+                clase.getAlumnos().add(alumno);
+                claseRepository.save(clase);
+            }
+
+            boolean asistenciaExiste = asistenciaRepository.existsByAlumnoAndClase(alumno, clase);
+
+            if (!asistenciaExiste) {
+                AsistenciaModel asistencia = new AsistenciaModel();
+                asistencia.setAlumno(alumno);
+                asistencia.setClase(clase);
+                asistencia.setFecha(LocalDate.now());
+                asistencia.setEstado(AsistenciaModel.EstadoAsistencia.PENDIENTE);
+                asistenciaRepository.save(asistencia);
+            }
         }
 
         return "redirect:/admin/gestionClases?exito=alumno_agregado";
     }
+
     
 
     @GetMapping("/gestionClases/nuevaClase")

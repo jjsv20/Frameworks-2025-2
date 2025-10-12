@@ -9,11 +9,11 @@
 <div class="container mt-4">
     <h3 class="mb-4 text-center">🎓 Mis Clases Asignadas</h3>
 
-    <div th:if="${#lists.isEmpty(clases)}" class="alert alert-info text-center">
+    <div th:if="${clases == null}" class="alert alert-info text-center">
         Aún no tienes clases asignadas.
     </div>
 
-    <div th:if="${!#lists.isEmpty(clases)}" class="table-responsive">
+    <div th:if="${clases != null}" class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark text-center">
                 <tr>
@@ -21,7 +21,7 @@
                     <th>Día</th>
                     <th>Hora</th>
                     <th>Duración</th>
-                    <th>Instructor</th>
+                    <th>Estudaintes</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,14 +30,20 @@
                     <td th:text="${clase.dia}">Lunes</td>
                     <td th:text="${#temporals.format(clase.hora, 'hh:mm a')}">08:00 AM</td>
                     <td th:text="${clase.duracionMinutos + ' min'}">60 min</td>
-                    <td th:text="${clase.instructor.nombre}">Instructor</td>
+                    <td>
+            <a th:href="@{/instructores/asistencia}"
+   class="btn btn-primary btn-sm">
+   Ver Estudiantes
+</a>
+
+        </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="text-center mt-3">
-        <a th:href="@{/alumnos/dashboard}" class="btn btn-secondary">Volver al Dashboard</a>
+        <a th:href="@{/instructores/dashboard}" class="btn btn-secondary">Volver al Dashboard</a>
     </div>
 </div>
 </body>

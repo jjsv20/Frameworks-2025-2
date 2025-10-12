@@ -70,6 +70,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/instructores/clases}"> <i class="fas fa-calendar-alt"></i> Mis Clases </a>
+                        
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/instructores/alumnos}"> <i class="fas fa-users"></i> Lista de Alumnos </a>
@@ -90,34 +91,6 @@
             <div class="mb-4">
                 <h2>¡Bienvenido, <span th:text="${instructor?.nombre ?: 'Instructor'}">Instructor</span>!</h2>
                 <p>Gestiona tus clases y tus alumnos desde aquí.</p>
-            </div>
-
-            <!-- Stats (simples para no romper plantilla) -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Clases Activas</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">24</div>
-                        <div class="stat-label">Alumnos Totales</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">92%</div>
-                        <div class="stat-label">Asistencia Promedio</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Próximas Clases</div>
-                    </div>
-                </div>
             </div>
 
             <div class="row g-4">
