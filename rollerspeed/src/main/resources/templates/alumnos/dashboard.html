@@ -177,40 +177,13 @@
                 <p>Revisa tus próximas clases, pagos y notificaciones.</p>
             </div>
 
-            <!-- Stats -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">Clases Completadas</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Próximas Clases</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number" th:text="${alumno?.nivel ?: 'Básico'}">Básico</div>
-                        <div class="stat-label">Nivel Actual</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card text-center">
-                        <div class="stat-number">95%</div>
-                        <div class="stat-label">Asistencia</div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row g-4">
                 <!-- Profile -->
                 <div class="col-lg-4">
                     <div class="profile-card text-center">
                         <div class="profile-avatar"><i class="fas fa-user"></i></div>
                         <h5 th:text="${alumno?.nombre ?: 'Nombre'}">Nombre del Estudiante</h5>
+                        <h6>Alumno</h6>
                         <div class="info-item">
                             <span>Email:</span>
                             <span th:text="${alumno?.email ?: 'email@ejemplo.com'}">email@ejemplo.com</span>

@@ -8,9 +8,65 @@
     <title>RollerSpeed - Eventos</title>
 </head>
 <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+        <div th:replace="fragments/navbar :: navbar"></div>
 
-    
+    <section class="py-5 bg-black">
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-xl-9 col-xxl-8">
+                <span class="text-white">Calendario</span>
+                <h2 class="display-5 fw-bold text-primary">Próximos Eventos RollerSpeed</h2>
+                
+                <p class="lead text-white">
+                    Participa en nuestros torneos, entrenamientos especiales y encuentros para patinadores de todos los niveles.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tarjetas de eventos -->
+        <div class="row g-6">
+            <!-- Evento 1 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow h-100">
+                    <img src="https://freefrontend.dev/assets/rectangle-wide.png" class="card-img-top" alt="Torneo Regional">
+                    <div class="card-body text-center">
+                        <span class="badge bg-primary mb-2">12 NOV 2025</span>
+                        <h5 class="card-title fw-bold" text-white>Torneo Regional de Velocidad</h5>
+                        <p class="card-text text-dark">Demuestra tus habilidades en pista y compite junto a los mejores clubes de la región.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evento 2 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow h-100">
+                    <img src="https://freefrontend.dev/assets/rectangle-wide.png" class="card-img-top" alt="Entrenamiento Especial">
+                    <div class="card-body text-center">
+                        <span class="badge bg-primary mb-2">25 NOV 2025</span>
+                        <h5 class="card-title fw-bold" text-white>Entrenamiento Especial con Instructores</h5>
+                        <p class="card-text text-dark">Sesión intensiva para mejorar técnica, equilibrio y velocidad. Cupos limitados.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Inscribirme</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evento 3 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow h-100">
+                    <img src="https://freefrontend.dev/assets/rectangle-wide.png" class="card-img-top" alt="Festival Roller">
+                    <div class="card-body text-center">
+                        <span class="badge bg-primary mb-2">10 DIC 2025</span>
+                        <h5 class="card-title fw-bold">Festival RollerSpeed 2025</h5>
+                        <p class="card-text text-dark">Una jornada de diversión, exhibiciones y premiaciones para toda la familia patinadora.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <div th:replace="fragments/footer :: footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

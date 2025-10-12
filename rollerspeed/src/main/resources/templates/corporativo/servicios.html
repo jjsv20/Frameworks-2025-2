@@ -1,68 +1,141 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    <title>RollerSpeed - Servicios</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>RollersSpeed - Servicios</title>
+    <style>
+        body {
+            background-color: #000000;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-wrapper {
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-title {
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .service-text {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Navbar -->
     <div th:replace="fragments/navbar :: navbar"></div>
 
+    <section class="py-5 bg-black">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center mb-5">
-                <span class="custom-badge text-white mb-3 d-inline-block">Nuestros Servicios</span>
-                <h2 class="display-5 fw-bold mb-3">Lo Que Ofrecemos</h2>
-                <p class="text-muted">Descubre nuestra gama de servicios profesionales diseñados para tu pasión por el patinaje</p>
+        <!-- Encabezado -->
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-8 col-xxl-7">
+                <span class="text-white">Nuestros Servicios</span>
+                <h2 class="display-5 fw-bold text-primary">Lo que Ofrecemos</h2>
+                <p class="lead text-white">
+                    En RollerSpeed te brindamos programas diseñados para desarrollar tu técnica, fuerza y pasión por el patinaje.
+                </p>
             </div>
         </div>
 
+        <!-- Tarjetas de servicios -->
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="service-card h-100 p-4">
-                    <div class="icon-wrapper mb-4">
-                        <svg width="32" height="32" fill="white" viewBox="0 0 16 16" class="bi bi-speedometer2">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v4.55l2.25 1.35a.5.5 0 1 1-.5.86l-2.5-1.5A.5.5 0 0 1 7.5 9V4.5A.5.5 0 0 1 8 4z"/>
-                            <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/>
-                        </svg>
+            <!-- Servicio 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-5">
+                        <div class="mb-3 text-primary">
+                            <i class="bi bi-lightning-charge-fill" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="fw-bold">Entrenamientos</h5>
+                        <p class="text-muted mt-3">Perfecciona arranques, giros y resistencia con sesiones personalizadas.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">Ver más</a>
                     </div>
-                    <h4 class="service-title text-center mb-3">Clases de Patinaje</h4>
-                    <p class="service-text text-center mb-0">Aprende y mejora tu técnica con nuestros instructores certificados, desde principiantes hasta avanzados.</p>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="service-card h-100 p-4">
-                    <div class="icon-wrapper mb-4">
-                        <svg width="32" height="32" fill="white" viewBox="0 0 16 16" class="bi bi-people">
-                            <path d="M13 7c0 1-1 1-2 1s-2 0-2-1 1-2 2-2 2 1 2 2zm-6 0c0 1-1 1-2 1s-2 0-2-1 1-2 2-2 2 1 2 2zm0 2c-2 0-6 1-6 3v1h12v-1c0-2-4-3-6-3z"/>
-                        </svg>
+            <!-- Servicio 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-5">
+                        <div class="mb-3 text-success">
+                            <i class="bi bi-people-fill" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="fw-bold">Clases Grupales</h5>
+                        <p class="text-muted mt-3">Ambiente divertido y seguro para aprender junto a otros patinadores de tu nivel.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">Saber más</a>
                     </div>
-                    <h4 class="service-title text-center mb-3">Entrenamiento Personal</h4>
-                    <p class="service-text text-center mb-0">Programas personalizados de fuerza y resistencia para mejorar tu rendimiento sobre ruedas.</p>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="service-card h-100 p-4">
-                    <div class="icon-wrapper mb-4">
-                        <svg width="32" height="32" fill="white" viewBox="0 0 16 16" class="bi bi-trophy">
-                            <path d="M3 2h10v2a5 5 0 0 1-5 5 5 5 0 0 1-5-5V2zm10-1H3a1 1 0 0 0-1 1v2a6 6 0 0 0 6 6 6 6 0 0 0 6-6V2a1 1 0 0 0-1-1z"/>
-                            <path d="M2 13s1 0 2 0 2 1 2 1v1H2v-2zm10 0s1 0 2 0 2 1 2 1v1h-4v-2z"/>
-                        </svg>
+            <!-- Servicio 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-5">
+                        <div class="mb-3 text-warning">
+                            <i class="bi bi-award-fill" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="fw-bold">Formación Competitiva</h5>
+                        <p class="text-muted mt-3">Programa intensivo para quienes buscan destacarse en torneos y competencias.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">Descubrir</a>
                     </div>
-                    <h4 class="service-title text-center mb-3">Eventos y Competencias</h4>
-                    <p class="service-text text-center mb-0">Organizamos torneos y eventos para que pongas a prueba tus habilidades y disfrutes del deporte en comunidad.</p>
+                </div>
+            </div>
+
+            <!-- Servicio 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-5">
+                        <div class="mb-3 text-danger">
+                            <i class="bi bi-heart-pulse-fill" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h5 class="fw-bold">Clases de Bienestar</h5>
+                        <p class="text-muted mt-3">Sesiones enfocadas en técnica, equilibrio, movilidad y salud corporal integral.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">Más info</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
+
+    <!-- Footer -->
     <div th:replace="fragments/footer :: footer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

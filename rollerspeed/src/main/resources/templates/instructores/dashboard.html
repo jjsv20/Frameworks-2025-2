@@ -99,6 +99,7 @@
                     <div class="profile-card text-center">
                         <div class="profile-avatar"><i class="fas fa-user-tie"></i></div>
                         <h5 th:text="${instructor?.nombre ?: 'Nombre'}">Nombre del Instructor</h5>
+                        <h6>Instructor</h6>
                         <div class="info-item">
                             <span>Email:</span>
                             <span th:text="${instructor?.user?.email ?: 'email@ejemplo.com'}">email@ejemplo.com</span>
@@ -113,25 +114,6 @@
                         </div>
                         <div class="text-center mt-3">
                             <a th:href="@{/instructores/editar}" class="btn-simple">Editar Perfil</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Placeholder Schedule -->
-                <div class="col-lg-8">
-                    <div class="schedule-card">
-                        <h5>Próximas Clases</h5>
-                        <div class="schedule-item">
-                            <strong>Clase de prueba</strong>
-                            <p>Miércoles 17:00 - 18:00 | Alumnos: 5</p>
-                        </div>
-                        <div class="schedule-item">
-                            <strong>Clase de prueba 2</strong>
-                            <p>Viernes 15:00 - 16:30 | Alumnos: 8</p>
-                        </div>
-                        <div class="schedule-item">
-                            <strong>Clase de prueba 3</strong>
-                            <p>Sábado 10:00 - 12:00 | Alumnos: 6</p>
                         </div>
                     </div>
                 </div>
